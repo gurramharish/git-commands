@@ -1,0 +1,306 @@
+ git clone https://github.com/harishkumarg10x/github-cookbook.git - To get copy of the project into local system
+
+git status - To check the status of the current changes and branch
+
+
+git init -- To init adding git to a folder
+
+git add . / git add <file_name> -- To add files from workgin directory to staging area
+
+git commit -m "Comment for the commit" -- To move files from   staging area to local respository (.git folder)
+
+git push origin master -- To push the changes to remove repository
+
+git remote add origin https://github.com/harishkumarg10x/react-contactmanager.git - To add remote origin(github repository)
+
+git remote set-url origin https://github.com/harishkumarg10x/react-contactmanager.git - To set or change remote origin
+
+git push -u origin master - To push the code to remote origin
+
+------Config Commands----------
+git config --global user.name "User_Name"
+
+git config --global user.email "useremail@gmail.com"
+
+git config --global core.editor "notepad++.exe -multiInst -nosession"
+
+git config --glonal -e --To  open .gitconfig file to edit
+
+git config --global --list  --To See global configurations for git
+
+----------Steps to create fresh git project locally--------
+
+git init <project-folder-name>
+
+npp <file_name> -- will open notepad++ add the content, save and close
+
+git add <file_name>
+
+git commit --will open npp to add comment to the commit 
+
+---------Important point---------------
+
+Do git pull before pushing
+
+git pull origin master
+
+----------------------Two commands at a time--------------
+
+git commit -am "Adding more ipsum text to hipster.txt" --Adding and commit with message at same time
+
+git ls-files --TO see the files tracked by git
+
+git reset HEAD level1-file.txt --(Revert)To move the file from satging to working directory
+
+git checkout -- level1-file.txt --To revert the changes in file 
+
+-----------Renaming commands and moving file commands and removing files---------------
+
+git mv level3-file.txt level3.txt --To rename the file or folder names
+
+mv level3-file.txt level3.txt -- is not git commonad but bash command to rename the files which will do delete the old file and create a new file with new name
+
+If you renamed the file out of git use the bellow command to change to git renaming
+git add -A (All the renamed, move and deletion will be staged)
+
+git mv level2.txt level3 --Will move the level2.txt to level3 folder
+
+Renaming the file out of git mv then run bellow 2 commands to make renaming to git renaming
+
+git add <file-name> && git add -u
+
+----remove commonads
+
+git rm <file-name> --Git remove
+
+rm -rf <folder-name> - batch remove for folder
+
+rm <file-name> - batch remove file name
+------------------------------------------------
+Log Commands to see history
+---------------------------
+git log --Will show the commit in log in descending chronological order of time
+
+git log --abbrev-commit --It will show the commit id
+
+git log --oneline --graph --decorate --To see commit graph
+
+git log --since="3 days ago" -- brings the commits from previous 3 days
+
+git log --follow --<path_of_the_file> --To show rename history of particular file
+
+git show 65e49d9c4436856e1a580d17e1a317eebfebe4aa(commit id) --Will show specific commit log
+
+---------------
+
+Creating alias for big commands
+----------
+
+git config --global alias.hist "log --all --graph --decorate  --oneline"
+
+-----------------------
+
+Ignore some files
+----------
+create .gitignore file
+
+Specific file : <file-name>
+Extension: *log
+Folder : <folder-name>
+
+-------------------------------------------
+
+Setting p4merge tool as git merge tool
+------------------------------------------
+Install p4merge from Perforce
+After successfull installaion please set path in systemvaiables for Perforce path in programfiles
+
+git config --global merge.tool p4merge --To set merge tool for git
+
+git config --global mergetool.p4merge.path "C:\Program Files\Perforce\p4merge.exe" --To tell git the path of p4merge tool
+
+git config --global mergetool.prompt false -- Stopping p4merge to prompt everytime to merge
+
+---config for diff tool
+git config --global diff.tool p4merge
+git config --glbobal difftool.p4merge.path "C:\Program Files\Perforce\p4merge.exe"
+git config --global difftool.prompt false
+
+-------------Diff Commands-------------------
+
+git diff --To diff in command prompt
+
+git diffTool -- to diff in diff tool if difftool is configured in git
+
+git diff will compare working directory and staging directory
+
+git diff HEAD will compare working directory with Git local Repository
+
+git diff --staged HEAD -- Will compare staging directory with last commit in command prompt
+
+git difftool --staged HEAD -- Will compare staging directory with last commit in diff tool(p4merge)
+
+---------Diff between two commits---------------
+git log --oneline --To see the commit log
+
+git diff <commit_id> HEAD
+
+git diff HEAD HEAD^(Head-1)
+
+git difftool HEAD HEAD^
+
+git difftool master origin/master
+
+-----------------------------Branching commands-----------
+
+git branch -a --TO list the branches and show current branch
+
+git branch <branch_name> will create new branch
+
+git checkout <branch_name> will change the working directory to branch
+
+git branch -m mynewbarnch newbranch --Will rename the branch name
+
+git branch -d newbranch  --will delete the branch if there is no changes with master to delete even if changes exists in branch use -D in place of -d
+
+Branching and merging
+--------------
+
+git checkout -b title-change -- Creating branch and changing the new branch
+
+change the files in branch and commit them in branch
+
+git checkout master
+
+git merge title-change -- Will merge branch as commit directly into master with out graph showing the merge graph
+
+git merge add-copyright --no-ff --To merge branch with master with out fast forward with preserving merge graph
+
+-----Creating conflict in branch and master-----------
+
+git merge realwork(branch_name)
+it will checkout to(master|MERGING) branch due to conflicts in the same file
+
+now in (master|MERGING) open merge tool to resolve the confilcts with bellow command
+
+git mergetool -- Will open the merge tool so manually merge the confilcts and save the file next run
+
+git commit -m "Done resolving merge confilcts"
+
+--------------------------Rebasing------------------
+Reabasing is called when you work with branch and there is some new changes in master you bring the changes from master to branch is called rebasing
+First checkout to branch
+
+git rebase master -- will rewind the branch and copy the master to branch and apply the changes on branch again
+
+git merge <branch_name> -- Will do fast forward merge
+
+After merge delete the branch
+
+git branch -d <branch_name>
+
+---------------Rebasing Conflict Resoultion and aborting------------------------------------
+
+1. First commited changes in master
+2. Created a branch and changed the same file which is changed in the master and committed in branch
+3. Checked out to master and again changed the same file which is already change previously in master and branch
+4. check out to branch and run rebase command
+
+git rebase master
+
+5. so it will throw a conflict and automatically checkout to (branch_name|REBASE) so to stop rebase use the bellow command
+
+git rebase --abort
+
+So next to solve the rebase conflict again run the rebase command
+
+git rebase master
+
+Again it checkout to (branch_name|REBASE)
+
+then run git mergetool and merge the conflicts manually and run command
+
+git rebase --continue
+
+next git add <file_name>
+
+next git rebase --continue
+
+Next change a file in branch and commit it
+
+next checkout to master and merge by using command
+git merge <branch_name>
+
+-----------Reabasing on Remote Branches(GitHub)-----------------
+
+git fetch origin master --Will update the references no files are brought from remote master to local master - non distructive command which will update the references
+
+To rebase from remote repository to local repository run bellow command
+git pull --rebase origin master
+
+Rebase will rewind the branch changes and added the master changes to branch first and apply the branch changes again
+
+----------------------Stashing---------------
+
+git stash -- Will Save the changes aside to do some other important work to finish in same branch
+
+Once you done commiting your other changes to get back to the stash run bellow command
+
+git stash apply
+
+git stash list -- To list the stash
+
+git stash apply stash@{0}
+
+git stash drop -- To drop the existing stash
+
+----------Stashing untracked files---------------
+
+git stash -u -- Will include untracked files to stash
+
+git stash pop --Will apply the stash and drop the stash after applying stash changes
+
+--------------------------------------------
+Git Status comparision is done on all the levels
+
+Different directories in git
+
+1. Local
+
+	a. Workig Directory 
+
+	b.Staging Area
+
+	c.Repository (.git Folder Locally)
+2. Remote
+
+----------------------------------------------------------
+
+Adding remote to local repositories
+
+---------------------------------------------------------------------
+
+git init
+
+git add . / git add <file_name>
+
+git commit
+
+git remote add origin https://github.com/harishkumarg10x/react-contactmanager.git - To add remote origin
+
+git remote set-url origin https://github.com/harishkumarg10x/react-contactmanager.git - To set or change remote origin
+
+git push -u origin master - To push the code to remote origin
+
+git remote set-url origin https://gurramharish12@bitbucket.org/gurramharish12/dtcc-eth-app.git
+
+git remote -v  --- To see existing remote urls.
+
+git clone https://gurramharish12@bitbucket.org/gurramharish12/dtcc-eth-app.git
+
+
+For Bit Bucket
+-----------------------------------------------------------
+git remote add origin https://gurramharish12@bitbucket.org/gurramharish12/dtcc-eth-app.git
+
+git push -u origin master
