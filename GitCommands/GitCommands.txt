@@ -304,3 +304,33 @@ For Bit Bucket
 git remote add origin https://gurramharish12@bitbucket.org/gurramharish12/dtcc-eth-app.git
 
 git push -u origin master
+------------------------------------------------------
+
+
+For first time copying local repo to bitbucket/github
+--------------------------------------------------------------------------
+
+Get your local Git repository on Bitbucket
+Step 1: Switch to your repository's directory
+
+cd /path/to/your/repo
+Step 2: Connect your existing repository to Bitbucket
+
+git remote add origin https://gurramharish12@bitbucket.org/gurramharish12/dtcc-eth-api.git
+git add ./
+git commit -m "Message for commit"
+git push -u origin master
+
+-----------------------------------------------------------
+
+Git Merge praticular commit/merge into another branch-----------
+
+-------------------------------------------------------------------
+git cherry-pick -m 1 <commit-hash>
+
+-- Delete local Branch ---
+git branch -d branch_name
+git branch -D branch_name (force delete)
+
+----- Delete remote branch ---
+git push origin --delete branch_name
